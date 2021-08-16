@@ -5,7 +5,7 @@
   
   <default sync-j="8"/>
 
-  <project name="charlie9830/castboard-manifests.git" remote="github" revision="master">
+  <project name="charlie9830/castboard-manifests.git" remote="github" revision="main">
     <linkfile src="setup-enviroment" dest="setup-enviroment"/>
   </project>
   
