@@ -25,5 +25,6 @@
   <project name="Charlie9830/meta-castboard-autorun" path="sources/meta-castboard-autorun" remote="github" revision="dunfell"/>
   <project name="Charlie9830/meta-castboard" path="sources/meta-castboard" remote="github" revision="dunfell"/>
   <project name="Charlie9830/meta-flutter" path="sources/meta-flutter" remote="github" revision="dunfell"/>
+  <project name="Charlie9830/meta-poky-centerstage" path="sources/meta-poky-centerstage" remote="github" revision="dunfell"/>
 
 </manifest>
