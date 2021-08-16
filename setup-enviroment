@@ -1,0 +1,37 @@
+# /bin/sh
+
+MACHINE = raspberrypi4-64
+
+source ./sources/poky/oe-init-build-env ./$MACHINE
+
+bitbake-layers add-layer \
+./sources/meta-raspberrypi \
+./sources/meta-openembedded/meta-filesystems \
+./sources/meta-openembedded/meta-oe \
+./sources/meta-openembedded/meta-multimedia \
+./sources/meta-openembedded/meta-networking \
+./sources/meta-openembedded/meta-python \
+./sources/meta-openembedded/meta-perl \
+./sources/meta-openembedded/meta-webserver \
+./sources/meta-security \
+./sources/meta-selinux \
+./sources/meta-qt5 \
+./sources/meta-jumpnow \
+./sources/meta-clang \
+./sources/meta-rust \
+./sources/meta-flutter \
+./sources/meta-castboard-networking \
+./sources/meta-castboard-autorun \
+./sources/meta-poky-centerstage \
+./sources/meta-castboard \
+
+# Swap machine reference in local.conf
+sed -i "s|MACHINE ??= \"qemux86-64\"|MACHINE ?= \"$MACHINE\"|g" conf/local.conf
+
+# Append our specific stuff to local.conf
+cat <<EOT >> conf/local.conf
+
+DISTRO ?= "poky-centerstage"
+FLUTTER_CHANNEL = "dev"
+
+EOT
