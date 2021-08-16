@@ -6,7 +6,7 @@
   <default sync-j="8"/>
 
   <project name="charlie9830/castboard-manifests.git" remote="github" revision="master">
-    <linkfile src="local-conf-additions" dest="local-conf-additions"/>
+    <linkfile src="setup-enviroment" dest="setup-enviroment"/>
   </project>
   
   <project name="openembedded/meta-openembedded" path="sources/meta-openembedded" remote="github" revision="dunfell"/>
