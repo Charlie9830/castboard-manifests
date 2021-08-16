@@ -1,2 +1,0 @@
-DISTRO ?= "poky-centerstage"
-FLUTTER_CHANNEL = "dev"
