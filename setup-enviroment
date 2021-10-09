@@ -1,5 +1,14 @@
 # /bin/sh
 
+while true; do
+    read -p $'Continuing will reset any uncommited changes in sources \n Are you sure you want to continue? [Yes, No] \n' yn
+    case $yn in
+        [Yy]* ) break;;
+        [Nn]* ) exit;;
+        * ) echo "Please answer yes or no.";;
+    esac
+done
+
 MACHINE = raspberrypi4-64
 
 source ./sources/poky/oe-init-build-env ./$MACHINE
@@ -33,5 +42,21 @@ cat <<EOT >> conf/local.conf
 
 DISTRO ?= "poky-centerstage"
 FLUTTER_CHANNEL = "dev"
+# RPI Resolution - CEA 1920 x 1080 60hz
+HDMI_GROUP = "1"
+HDMI_MODE = "16"
 
+# RPI Force Hotplug - Otherwise the Graphics Stack won't load unless a monitor is present
+# from power on.
+HDMI_FORCE_HOTPLUG = "1"
+
+# Castboard Branches
+# Doesn't current work very well because Bitbake seems to use a different staging directory when on a 
+# non master branch.
+CASTBOARD_PLAYER_BRANCH = "master"
+
+# Castboard Revisions
+CASTBOARD_CORE_REV = "ENTER REV HERE"
+CASTBOARD_REMOTE_REV = "ENTER REV HERE"
+CASTBOARD_PLAYER_REV = "ENTER REV HERE"
 EOT
