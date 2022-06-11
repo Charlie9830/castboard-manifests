@@ -30,7 +30,6 @@ bitbake-layers add-layer \
 ./sources/meta-rust \
 ./sources/meta-flutter \
 ./sources/meta-castboard-networking \
-./sources/meta-castboard-autorun \
 ./sources/meta-poky-centerstage \
 ./sources/meta-castboard \
 
@@ -40,8 +39,33 @@ sed -i "s|MACHINE ??= \"qemux86-64\"|MACHINE ?= \"$MACHINE\"|g" conf/local.conf
 # Append our specific stuff to local.conf
 cat <<EOT >> conf/local.conf
 
+#
+# Default policy config
+#
 DISTRO ?= "poky-centerstage"
-FLUTTER_CHANNEL = "dev"
+
+#
+# Additional image features
+#
+USER_CLASSES ?= "buildstats image-mklibs image-prelink"
+
+#
+# SPECIFIC CONFIGURATION
+#
+
+# HOST MACHINE BUILD
+BB_NUMBER_THREADS ?= "6"
+PARALLEL_MAKE = "-j 6"
+
+# RPI Specific Configuration
+DISABLE_OVERSCAN = "1"
+DISABLE_RPI_BOOT_LOGO = "1"
+DISABLE_SPLASH = "1"
+ENABLE_SPI_BUS = "1"
+ENABLE_I2C = "1"
+ENABLE_UART = "0"
+SERIAL_CONSOLES = ""
+
 # RPI Resolution - CEA 1920 x 1080 60hz
 HDMI_GROUP = "1"
 HDMI_MODE = "16"
@@ -50,13 +74,20 @@ HDMI_MODE = "16"
 # from power on.
 HDMI_FORCE_HOTPLUG = "1"
 
+GPU_MEM = "128"
+KERNEL_MODULE_AUTOLOAD_raspberrypi4-64 += "i2c-dev i2c-bcm2708"
+DISPMANX_OFFLINE = "1"
+LINUX_KERNEL_TYPE = "preempt-rt"
+CMDLINE_DEBUG = "quiet"
+PREFERRED_VERSION_linux-raspberrypi = "5.4.%"
+
 # Castboard Branches
 # Doesn't current work very well because Bitbake seems to use a different staging directory when on a 
 # non master branch.
 CASTBOARD_PLAYER_BRANCH = "master"
 
 # Castboard Revisions
-CASTBOARD_CORE_REV = "ENTER REV HERE"
-CASTBOARD_REMOTE_REV = "ENTER REV HERE"
-CASTBOARD_PLAYER_REV = "ENTER REV HERE"
+CASTBOARD_CORE_REV = "ENTER SHA"
+CASTBOARD_SHOWCALLER_REV = "ENTER SHA"
+CASTBOARD_PERFORMER_REV = "ENTER SHA"
 EOT
